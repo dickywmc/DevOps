@@ -1,0 +1,8 @@
+//WONGDICB JOB (),'RUN REXX 01',NOTIFY=&SYSUID,MSGCLASS=A
+//**********************************************************************
+//REXJ     EXEC PGM=IKJEFT01,DYNAMNBR=45
+//SYSPROC  DD DISP=SHR,DSN=WONGDIC.REXX.CNTL
+//SYSTSPRT DD SYSOUT=*
+//SYSTSIN  DD *
+%SMPREX01
+//*
