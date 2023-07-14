@@ -26,9 +26,9 @@ pipeline {
                     }
                 }
                 
-                bat 'zowe daemon enable'
-                bat 'zowe --version'
-                bat 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" --wfo --rff retcode --rft string'
+                sh 'zowe daemon enable'
+                sh 'zowe --version'
+                sh 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" --wfo --rff retcode --rft string --reject-unauthorized false'
             }
         }
     }
