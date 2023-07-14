@@ -30,7 +30,7 @@ pipeline {
         }
 
         stage('Compile') {
-            echo 'currentBuild.result'
+            //echo 'currentBuild.result'
             when {
                 expression {currentBuild.result != 'SUCCESS'}
             }
