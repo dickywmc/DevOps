@@ -11,7 +11,7 @@ pipeline {
     }
     
     stages {
-        stage('Hello') {
+        stage('Prepare_credentials') {
             steps {
                 script {
                     withCredentials([
@@ -24,10 +24,13 @@ pipeline {
                         env.ZOWE_OPT_USER = "${USERN}"
                         env.ZOWE_OPT_PASSWORD = "${PASSW}"
                     }
-                }
-                
+                }  
                 sh 'zowe daemon enable'
-                sh 'zowe --version'
+            }
+        }
+
+        stage('Compile') {
+            steps {
                 sh 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" --wfo --rff retcode --rft string --reject-unauthorized false'
             }
         }
