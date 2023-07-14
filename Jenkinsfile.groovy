@@ -1,19 +1,35 @@
 pipeline {
-        agent any
-        stages {
-            stage('Script-01') {
-                steps {
-                    script {
-                            build job: 'Script-01'
-                        }
+    agent any
+    
+    environment {
+        ZOWE_OPT_HOST = '192.86.32.250'
+        ZOWE_OPT_PORT = '10443'
+    }
+
+    tools {
+        nodejs "Zowe CLI"
+    }
+    
+    stages {
+        stage('Hello') {
+            steps {
+                script {
+                    withCredentials([
+                        usernamePassword(
+                            credentialsId: 'COBOL',
+                            usernameVariable: 'USERN',
+                            passwordVariable: 'PASSW'
+                        )
+                    ]) {
+                        env.ZOWE_OPT_USER = "${USERN}"
+                        env.ZOWE_OPT_PASSWORD = "${PASSW}"
                     }
-               }   
-            stage('Script-02') {
-                steps {
-                    script {
-                            build job: 'Script-02'
-                        }
-                    }
-               }   
-           }
-       }
+                }
+                
+                bat 'zowe daemon enable'
+                bat 'zowe --version'
+                bat 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" --wfo --rff retcode --rft string'
+            }
+        }
+    }
+}
