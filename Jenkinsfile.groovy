@@ -29,7 +29,7 @@ pipeline {
             }
         }
 
-        stage('Compile_COBOL') {
+        stage('Compile_COB') {
             when {
                 expression {currentBuild.currentResult == 'SUCCESS'}
             }
