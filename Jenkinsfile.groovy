@@ -34,7 +34,11 @@ pipeline {
                 expression {currentBuild.currentResult == 'SUCCESS'}
             }
             steps {
-                sh 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" --wfo --rff retcode --rft string --reject-unauthorized false'
+                script {
+                    def commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
+                    echo " Response: ${commandOutput}"
+                }
+                //sh 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" --wfo --rff retcode --rft string --reject-unauthorized false'
             }
         }
 
