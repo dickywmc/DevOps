@@ -49,7 +49,7 @@ pipeline {
                     // Execute the FTP command
                     */
                     //sh('zowe zos-ftp download data-set Z90319.JCL(COMPILE) -f ftp.txt')
-                    //echo 'FTP'
+                    echo 'FTP'
                 }
                 sh 'zowe zos-files download data-set Z90319.DATA -f ftp.txt --reject-unauthorized false'
                 sh 'cat ftp.txt'
