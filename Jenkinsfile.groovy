@@ -47,7 +47,8 @@ pipeline {
                                      "EOF"
 
                     // Execute the FTP command
-                    sh(ftpCommand)
+                    //sh(ftpCommand)
+                    sh 'zowe zos-ftp download data-set Z90319.JCL(COMPILE) -f ftp.txt'
                     echo 'FTP'
                 }
             }
