@@ -32,7 +32,7 @@ pipeline {
         stage('#1 FTP') {
             steps {
                 script {
-                    // Define FTP connection details
+                    /* Define FTP connection details
                     def host = '192.86.32.250'
                     def username = 'z90319'
                     def password = '111113'
@@ -47,11 +47,11 @@ pipeline {
                                      "EOF"
 
                     // Execute the FTP command
-                    sh('zowe zos-ftp download data-set Z90319.JCL(COMPILE) -f ftp.txt')
-                    
+                    */
+                    //sh('zowe zos-ftp download data-set Z90319.JCL(COMPILE) -f ftp.txt')
                     echo 'FTP'
                 }
-                //sh 'zowe zos-ftp download data-set Z90319.JCL(COMPILE) -f ftp.txt'
+                sh 'zowe zos-ftp download data-set Z90319.JCL(COMPILE) -f ftp.txt'
             }
         }
 
