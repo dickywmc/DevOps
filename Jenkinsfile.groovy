@@ -37,9 +37,9 @@ pipeline {
                 script {
                     def commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" \
                         --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
-                    //echo " Response: ${commandOutput}"
-                    if (commandOutput == 'CC 0000') {
-                        error "Compile failure!"
+                    
+                    if (commandOutput != 'CC 0000') {
+                        error "Compile failure ${commandOutput}"
                     }
                 }
                 //sh 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" --wfo --rff retcode --rft string --reject-unauthorized false'
@@ -51,7 +51,14 @@ pipeline {
                 expression {currentBuild.currentResult == 'SUCCESS'}
             }*/
             steps {
-                sh 'zowe zos-jobs submit data-set "Z90319.JCL(RUN)" --wfo --rff retcode --rft string --reject-unauthorized false'
+                script {
+                    def commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(RUN)" \
+                        --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
+                    
+                    if (commandOutput != 'CC 0000') {
+                        error "Run failure ${commandOutput}"
+                    }
+                }
             }
         }
     }
