@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     def commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" \
-                        --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true)
+                        --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
                     //echo " Response: ${commandOutput}"
                     if (commandOutput == 'CC 0000') {
                         error "Compile failure!"
