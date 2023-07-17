@@ -11,7 +11,7 @@ pipeline {
     }
     
     stages {
-        stage('Prepare_credentials') {
+        stage('#0 Prepare_credentials') {
             steps {
                 script {
                     withCredentials([
@@ -29,13 +29,13 @@ pipeline {
             }
         }
 
-        stage('Compile_COB') {
+        stage('#1 Compile_COB') {
             when {
                 expression {currentBuild.currentResult == 'SUCCESS'}
             }
             steps {
                 script {
-                    def commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" \
+                    commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" \
                         --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true)
                     echo " Response: ${commandOutput}"
                 }
@@ -43,7 +43,7 @@ pipeline {
             }
         }
 
-        stage('Run_COB') {
+        stage('#2 Run_COB') {
             when {
                 expression {currentBuild.currentResult == 'SUCCESS'}
             }
