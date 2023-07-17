@@ -32,14 +32,22 @@ pipeline {
         stage('#1 FTP') {
             steps {
                 script {
-                    /*
-                    def commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" \
-                        --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
-                    
-                    if (commandOutput != 'CC 0000') {
-                        error "Compile failure ${commandOutput}"
-                    }
-                    */
+                    // Define FTP connection details
+                    def host = '192.86.32.250'
+                    def username = 'z90319'
+                    def password = '111113'
+                    def remoteDirectory = 'JCL'
+
+                    // Set up the FTP command
+                    def ftpCommand = "ftp -n ${host} <<EOF\n" +
+                                     "user ${username} ${password}\n" +
+                                     "cd ${remoteDirectory}\n" +
+                                     "get compile\n" +
+                                     "bye\n" +
+                                     "EOF"
+
+                    // Execute the FTP command
+                    sh(ftpCommand)
                     echo 'FTP'
                 }
             }
