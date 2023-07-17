@@ -50,6 +50,8 @@ pipeline {
                     */
                     //sh('zowe zos-ftp download data-set Z90319.JCL(COMPILE) -f ftp.txt')
                     echo 'FTP'
+                    git branch: 'main', url: 'https://github.com/dickywmc/DevOps.git'
+                    sh 'cat README.md'
                 }
                 sh 'zowe zos-files download data-set Z90319.DATA -f ftp.txt --reject-unauthorized false'
                 sh 'cat ftp.txt'
