@@ -37,5 +37,14 @@ pipeline {
                 sh 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" --wfo --rff retcode --rft string --reject-unauthorized false'
             }
         }
+
+        stage('Run_COB') {
+            when {
+                expression {currentBuild.currentResult == 'SUCCESS'}
+            }
+            steps {
+                sh 'zowe zos-jobs submit data-set "Z90319.JCL(RUN)" --wfo --rff retcode --rft string --reject-unauthorized false'
+            }
+        }
     }
 }
