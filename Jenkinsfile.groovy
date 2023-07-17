@@ -29,6 +29,22 @@ pipeline {
             }
         }
 
+        stage('#1 FTP to mainframe') {
+            steps {
+                script {
+                    /*
+                    def commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" \
+                        --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
+                    
+                    if (commandOutput != 'CC 0000') {
+                        error "Compile failure ${commandOutput}"
+                    */
+                    echo 'FTP'
+                    }
+                }
+            }
+        }
+
         stage('#1 Compile_COB') {
             when {
                 expression {currentBuild.currentResult == 'SUCCESS'}
