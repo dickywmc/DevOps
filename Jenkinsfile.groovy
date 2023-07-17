@@ -47,9 +47,9 @@ pipeline {
         }
 
         stage('#2 Run_COB') {
-            when {
+            /*when {
                 expression {currentBuild.currentResult == 'SUCCESS'}
-            }
+            }*/
             steps {
                 sh 'zowe zos-jobs submit data-set "Z90319.JCL(RUN)" --wfo --rff retcode --rft string --reject-unauthorized false'
             }
