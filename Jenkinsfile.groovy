@@ -24,7 +24,7 @@ pipeline {
                         env.ZOWE_OPT_USER = "${USERN}"
                         env.ZOWE_OPT_PASSWORD = "${PASSW}"
                     }
-                }  
+                }
                 sh 'zowe daemon enable'
             }
         }
@@ -38,9 +38,9 @@ pipeline {
                     
                     if (commandOutput != 'CC 0000') {
                         error "Compile failure ${commandOutput}"
+                    }
                     */
                     echo 'FTP'
-                    }
                 }
             }
         }
