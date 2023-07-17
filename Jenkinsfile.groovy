@@ -29,7 +29,7 @@ pipeline {
             }
         }
 
-        stage('#1 FTP to mainframe') {
+        stage('#1 FTP') {
             steps {
                 script {
                     /*
@@ -45,7 +45,7 @@ pipeline {
             }
         }
 
-        stage('#1 Compile_COB') {
+        stage('#2 Compile_COB') {
             when {
                 expression {currentBuild.currentResult == 'SUCCESS'}
             }
@@ -62,7 +62,7 @@ pipeline {
             }
         }
 
-        stage('#2 Run_COB') {
+        stage('#3 Run_COB') {
             /*when {
                 expression {currentBuild.currentResult == 'SUCCESS'}
             }*/
