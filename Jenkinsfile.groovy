@@ -51,7 +51,7 @@ pipeline {
                     //sh('zowe zos-ftp download data-set Z90319.JCL(COMPILE) -f ftp.txt')
                     echo 'FTP'
                 }
-                sh 'zowe zos-files download data-set Z90319.DATA -f ftp.txt'
+                sh 'zowe zos-files download data-set Z90319.DATA -f ftp.txt --reject-unauthorized false'
             }
         }
 
