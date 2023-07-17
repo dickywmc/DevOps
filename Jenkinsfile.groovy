@@ -39,7 +39,7 @@ pipeline {
                         --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true)
                     //echo " Response: ${commandOutput}"
                     if (commandOutput == 'CC 0000') {
-                        error "Compile failure"
+                        error "Compile failure!"
                     }
                 }
                 //sh 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" --wfo --rff retcode --rft string --reject-unauthorized false'
