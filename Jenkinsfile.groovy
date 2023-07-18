@@ -41,9 +41,9 @@ pipeline {
         }
 
         stage('#2 Compile COB') {
-            when {
+            /*when {
                 expression {currentBuild.currentResult == 'SUCCESS'}
-            }
+            }*/
             steps {
                 script {
                     def commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" \
