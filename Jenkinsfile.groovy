@@ -36,7 +36,7 @@ pipeline {
                     git branch: 'main', url: 'https://github.com/dickywmc/DevOps.git'
                 }
                 // Upload COBOL program to mainframe (can be parameterized)
-                sh 'zowe zos-files upload file-to-data-set "CBL0002.cbl" "Z90319.CBL(CBL0001)" --reject-unauthorized false'
+                sh 'zowe zos-files upload file-to-data-set "CBL0001.cbl" "Z90319.CBL(CBL0001)" --reject-unauthorized false'
             }
         }
 
