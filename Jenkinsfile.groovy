@@ -2,8 +2,10 @@ pipeline {
     agent any
     
     environment {
-        ZOWE_OPT_HOST = '192.86.32.250'
-        ZOWE_OPT_PORT = '10443'
+        //ZOWE_OPT_HOST = '192.86.32.250'
+        //ZOWE_OPT_PORT = '10443'
+        ZOWE_OPT_HOST = 'mainframet.manulife.com'
+        ZOWE_OPT_PORT = '9443'
     }
 
     tools {
