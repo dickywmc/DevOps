@@ -16,7 +16,7 @@ pipeline {
                 script {
                     withCredentials([
                         usernamePassword(
-                            credentialsId: 'COBOL',
+                            credentialsId: 'SYST',
                             usernameVariable: 'USERN',
                             passwordVariable: 'PASSW'
                         )
@@ -43,7 +43,8 @@ pipeline {
                     git branch: 'main', url: 'https://github.com/dickywmc/DevOps.git'
                 }
                 // Upload COBOL program to mainframe (can be parameterized)
-                sh 'zowe zos-files upload file-to-data-set "CBL0001.cbl" "Z90319.CBL(CBL0001)" --reject-unauthorized false'
+                //sh 'zowe zos-files upload file-to-data-set "CBL0001.cbl" "Z90319.CBL(CBL0001)" --reject-unauthorized false'
+                sh 'zowe zos-files upload file-to-data-set "CBL0001.cbl" "WONGDIC.COB.CNTL(CBL0001)" --reject-unauthorized false'
             }
         }
 
@@ -53,9 +54,12 @@ pipeline {
             }*/
             steps {
                 script {
-                    def commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" \
+                    //def commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" \
+                    //    --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
+
+                    def commandOutput = sh(script: 'zowe zos-jobs submit data-set "WONGDIC.COB.CNTL(REXEXC01)" \
                         --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
-                    
+
                     if (commandOutput != 'CC 0000') {
                         error "Compile failure ${commandOutput}"
                     }
@@ -69,7 +73,10 @@ pipeline {
             }*/
             steps {
                 script {
-                    def commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(RUN)" \
+                    //def commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(RUN)" \
+                    //    --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
+
+                    def commandOutput = sh(script: 'zowe zos-jobs submit data-set "WONGDIC.COB.CNTL(REXEXC01)" \
                         --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
                     
                     if (commandOutput != 'CC 0000') {
