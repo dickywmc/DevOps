@@ -11,7 +11,7 @@ pipeline {
     }
     
     stages {
-        stage('#0 Prepare_credentials') {
+        stage('#0 Prepare credentials') {
             steps {
                 script {
                     withCredentials([
@@ -53,12 +53,12 @@ pipeline {
                     git branch: 'main', url: 'https://github.com/dickywmc/DevOps.git'
                     sh 'cat README.md'
                 }
-                sh 'zowe zos-files upload file-to-data-set "CBL0001.cbl" "Z90319.CBL(TEST)" --reject-unauthorized false'
+                sh 'zowe zos-files upload file-to-data-set "CBL0001.cbl" "Z90319.CBL(CBL0001)" --reject-unauthorized false'
                 //sh 'cat ftp.txt'
             }
         }
 
-        stage('#2 Compile_COB') {
+        stage('#2 Compile COB') {
             when {
                 expression {currentBuild.currentResult == 'SUCCESS'}
             }
@@ -75,7 +75,7 @@ pipeline {
             }
         }
 
-        stage('#3 Run_COB') {
+        stage('#3 Run COB') {
             /*when {
                 expression {currentBuild.currentResult == 'SUCCESS'}
             }*/
