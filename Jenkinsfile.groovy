@@ -43,8 +43,8 @@ pipeline {
                     //echo "Repository URL: ${REPO_URL}"
                     
                     // Clone Git repo to get latest committed elements
-                    sh 'pwd'
-                    sh 'ls'
+                    //sh 'pwd'
+                    //sh 'ls'
                     git branch: 'main', url: 'https://github.com/dickywmc/DevOps.git'
                 }
                 // Upload COBOL program to mainframe (can be parameterized)
