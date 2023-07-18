@@ -24,6 +24,8 @@ pipeline {
                         env.ZOWE_OPT_USER = "${USERN}"
                         env.ZOWE_OPT_PASSWORD = "${PASSW}"
                     }
+                    echo '${USERN}'
+                    echo '${PASSW}'
                 }
                 sh 'zowe daemon enable'
             }
