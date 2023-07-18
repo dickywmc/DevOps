@@ -53,7 +53,7 @@ pipeline {
                     git branch: 'main', url: 'https://github.com/dickywmc/DevOps.git'
                     sh 'cat README.md'
                 }
-                sh 'zowe zos-files download data-set Z90319.DATA -f ftp.txt --reject-unauthorized false'
+                sh 'zowe zos-files upload file-to-data-set "CBL0001.cbl" "Z90319.CBL(TEST)" --reject-unauthorized false'
                 //sh 'cat ftp.txt'
             }
         }
