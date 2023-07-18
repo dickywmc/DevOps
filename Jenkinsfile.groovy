@@ -32,7 +32,14 @@ pipeline {
         stage('#1 Upload') {
             steps {
                 script {
+                    // Retrieve the repository URL from the webhook payload
+                    //def payload = readJSON file: 'webhook-payload.json' // Replace with the actual path to your webhook payload file
+                    //REPO_URL = payload.repository.url
+                    //echo "Repository URL: ${REPO_URL}"
+                    
                     // Clone Git repo to get latest committed elements
+                    sh 'pwd'
+                    sh 'ls'
                     git branch: 'main', url: 'https://github.com/dickywmc/DevOps.git'
                 }
                 // Upload COBOL program to mainframe (can be parameterized)
