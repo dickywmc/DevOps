@@ -29,32 +29,14 @@ pipeline {
             }
         }
 
-        stage('#1 FTP') {
+        stage('#1 Upload') {
             steps {
                 script {
-                    /* Define FTP connection details
-                    def host = '192.86.32.250'
-                    def username = 'z90319'
-                    def password = '111113'
-                    def remoteDirectory = 'JCL'
-
-                    // Set up the FTP command
-                    def ftpCommand = "ftp -n ${host} <<EOF\n" +
-                                     "user ${username} ${password}\n" +
-                                     "cd ${remoteDirectory}\n" +
-                                     "get compile\n" +
-                                     "bye\n" +
-                                     "EOF"
-
-                    // Execute the FTP command
-                    */
-                    //sh('zowe zos-ftp download data-set Z90319.JCL(COMPILE) -f ftp.txt')
-                    //echo 'FTP'
+                    // Clone Git repo to get latest committed elements
                     git branch: 'main', url: 'https://github.com/dickywmc/DevOps.git'
-                    sh 'cat README.md'
                 }
-                sh 'zowe zos-files upload file-to-data-set "CBL0001.cbl" "Z90319.CBL(CBL0001)" --reject-unauthorized false'
-                //sh 'cat ftp.txt'
+                // Upload COBOL program to mainframe (can be parameterized)
+                sh 'zowe zos-files upload file-to-data-set "CBL0002.cbl" "Z90319.CBL(CBL0001)" --reject-unauthorized false'
             }
         }
 
