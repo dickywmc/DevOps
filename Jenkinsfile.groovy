@@ -27,7 +27,7 @@ pipeline {
                         env.ZOWE_OPT_PASSWORD = "${PASSW}"
                     }
                     //def username = env.ZOWE_OPT_PASSWORD
-                    def payload = github.event.payload
+                    def payload = params.payload
                     echo "Payload = ${payload}"
                     //def payloadJson = readJSON text: payload
                 }
