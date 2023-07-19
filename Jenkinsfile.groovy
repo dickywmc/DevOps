@@ -26,7 +26,9 @@ pipeline {
                         env.ZOWE_OPT_USER = "${USERN}"
                         env.ZOWE_OPT_PASSWORD = "${PASSW}"
                     }
-                    def username = env.ZOWE_OPT_PASSWORD
+                    //def username = env.ZOWE_OPT_PASSWORD
+                    def payload = params.payload
+                    def payloadJson = readJSON text: payload
                 }
                 sh 'zowe daemon enable'
             }
