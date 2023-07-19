@@ -27,8 +27,6 @@ pipeline {
                         env.ZOWE_OPT_PASSWORD = "${PASSW}"
                     }
                     def username = env.ZOWE_OPT_PASSWORD
-                    echo "User password is ${username}"
-                    //echo "${PASSW}"
                 }
                 sh 'zowe daemon enable'
             }
@@ -62,7 +60,7 @@ pipeline {
                     //def commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" \
                     //    --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
 
-                    def commandOutput = sh(script: 'zowe zos-jobs submit data-set "WONGDIC.COB.CNTL(REXEXC01)" \
+                    def commandOutput = sh(script: 'zowe zos-jobs submit data-set "WONGDIC.COB.CNTL(COMPILE)" \
                         --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
 
                     if (commandOutput != 'CC 0000') {
@@ -81,7 +79,7 @@ pipeline {
                     //def commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(RUN)" \
                     //    --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
 
-                    def commandOutput = sh(script: 'zowe zos-jobs submit data-set "WONGDIC.COB.CNTL(REXEXC01)" \
+                    def commandOutput = sh(script: 'zowe zos-jobs submit data-set "WONGDIC.COB.CNTL(RUN)" \
                         --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
                     
                     if (commandOutput != 'CC 0000') {
