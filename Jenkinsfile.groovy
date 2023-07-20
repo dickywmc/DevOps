@@ -28,7 +28,7 @@ pipeline {
                     }
                     //def username = env.ZOWE_OPT_PASSWORD
                     //def payload = params.payload
-                    echo "Payload = ${payloa}"
+                    echo "Payload = ${payload}"
                     //def payloadJson = readJSON text: payload
                 }
                 sh 'zowe daemon enable'
