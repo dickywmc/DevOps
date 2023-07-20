@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script {
                     // Retrieve the repository URL and default branch from the webhook payload
-                    // Clone Git repo to get latest committed element
+                    // Clone Git repo to get latest committed elements
                     //git branch: 'main', url: 'https://github.com/dickywmc/DevOps.git'
                     git branch: branch, url: url
                 }
