@@ -70,7 +70,7 @@
       *     The loop starts at the next line with PERFORM UNTIL
             PERFORM UNTIL LASTREC = 'Y'
             PERFORM WRITE-RECORD
-            PERFORM READ-RECOR
+            PERFORM READ-RECORD
             END-PERFORM.
 
       *
@@ -93,4 +93,4 @@
            MOVE COMMENTS     TO  COMMENTS-O.
            WRITE PRINT-REC.
       *
-      * A comment line added by Dicky
+      * A comment line added by Dicky Wong
