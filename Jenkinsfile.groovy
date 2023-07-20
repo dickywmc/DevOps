@@ -6,8 +6,8 @@ pipeline {
         //ZOWE_OPT_PORT = '10443'
         //ZOWE_OPT_HOST = 'mainframet.manulife.com'
         //ZOWE_OPT_PORT = '9443'
-        ZOWE_OPT_HOST = ${address}
-        ZOWE_OPT_PORT = ${port}
+        ZOWE_OPT_HOST = "${address}"
+        ZOWE_OPT_PORT = "${port}"
     }
 
     tools {
