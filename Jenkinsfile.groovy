@@ -2,10 +2,7 @@ pipeline {
     agent any
     
     environment {
-        //ZOWE_OPT_HOST = '192.86.32.250'
-        //ZOWE_OPT_PORT = '10443'
-        //ZOWE_OPT_HOST = 'mainframet.manulife.com'
-        //ZOWE_OPT_PORT = '9443'
+        //Host address and port from pipeline configuration parameters
         ZOWE_OPT_HOST = "${address}"
         ZOWE_OPT_PORT = "${port}"
     }
@@ -25,34 +22,24 @@ pipeline {
                             passwordVariable: 'PASSW'
                         )
                     ]) {
+                        //Host ID and password from Jenkins credentials
                         env.ZOWE_OPT_USER = "${USERN}"
                         env.ZOWE_OPT_PASSWORD = "${PASSW}"
                     }
-                    //def username = env.ZOWE_OPT_PASSWORD
-                    //def payload = params.payload
-                    //echo "Payload = ${url}"
-                    //def payloadJson = readJSON text: payload
                 }
                 sh 'zowe daemon enable'
             }
         }
 
-        stage('#1 Upload') {
+        stage('#1 Upload source from Git to mainframe') {
             steps {
                 script {
-                    // Retrieve the repository URL from the webhook payload
-                    //def payload = readJSON file: 'webhook-payload.json' // Replace with the actual path to your webhook payload file
-                    //REPO_URL = payload.repository.url
-                    //echo "Repository URL: ${REPO_URL}"
-                    
+                    // Retrieve the repository URL and default branch from the webhook payload
                     // Clone Git repo to get latest committed elements
-                    //sh 'pwd'
-                    //sh 'ls'
                     //git branch: 'main', url: 'https://github.com/dickywmc/DevOps.git'
                     git branch: branch, url: url
                 }
                 // Upload COBOL program to mainframe (can be parameterized)
-                //sh 'zowe zos-files upload file-to-data-set "CBL0001.cbl" "Z90319.CBL(CBL0001)" --reject-unauthorized false'
                 sh 'zowe zos-files upload file-to-data-set "CBL0001.cbl" "WONGDIC.COB.CNTL(CBL0001)" --reject-unauthorized false'
             }
         }
@@ -63,12 +50,10 @@ pipeline {
             }*/
             steps {
                 script {
-                    //def commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(COMPILE)" \
-                    //    --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
-
                     def commandOutput = sh(script: 'zowe zos-jobs submit data-set "WONGDIC.COB.CNTL(COMPILE)" \
                         --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
 
+                    // Check compilation result
                     if (commandOutput != 'CC 0000') {
                         error "Compile failure ${commandOutput}"
                     }
@@ -82,12 +67,10 @@ pipeline {
             }*/
             steps {
                 script {
-                    //def commandOutput = sh(script: 'zowe zos-jobs submit data-set "Z90319.JCL(RUN)" \
-                    //    --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
-
                     def commandOutput = sh(script: 'zowe zos-jobs submit data-set "WONGDIC.COB.CNTL(RUN)" \
                         --wfo --rff retcode --rft string --reject-unauthorized false', returnStdout: true).trim()
                     
+                    // Check run result
                     if (commandOutput != 'CC 0000') {
                         error "Run failure ${commandOutput}"
                     }
