@@ -4,8 +4,10 @@ pipeline {
     environment {
         //ZOWE_OPT_HOST = '192.86.32.250'
         //ZOWE_OPT_PORT = '10443'
-        ZOWE_OPT_HOST = 'mainframet.manulife.com'
-        ZOWE_OPT_PORT = '9443'
+        //ZOWE_OPT_HOST = 'mainframet.manulife.com'
+        //ZOWE_OPT_PORT = '9443'
+        ZOWE_OPT_HOST = address
+        ZOWE_OPT_PORT = port
     }
 
     tools {
@@ -28,7 +30,7 @@ pipeline {
                     }
                     //def username = env.ZOWE_OPT_PASSWORD
                     //def payload = params.payload
-                    echo "Payload = ${url}"
+                    //echo "Payload = ${url}"
                     //def payloadJson = readJSON text: payload
                 }
                 sh 'zowe daemon enable'
